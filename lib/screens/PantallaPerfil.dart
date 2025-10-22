@@ -17,7 +17,6 @@ class _PantallaperfilState extends State<Pantallaperfil> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         title: Text("Perfil"),
-        automaticallyImplyLeading: false,
       ),
       body: Container(
         alignment: AlignmentGeometry.center,

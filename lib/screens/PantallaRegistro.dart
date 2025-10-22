@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
-import 'package:jessicalopesc1/models/CameraGalleryService.dart';
+import 'package:jessicalopesc1/utils/CameraGalleryService.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
 import 'package:jessicalopesc1/screens/PantallaSecundaria.dart';
 import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
+import 'package:jessicalopesc1/utils/Validators.dart';
 import 'package:jessicalopesc1/utils/button_styles.dart';
 
 class Pantallaregistro extends StatefulWidget {
@@ -18,7 +19,7 @@ class Pantallaregistro extends StatefulWidget {
 
 
 class _PantallaregistroState extends State<Pantallaregistro> {
-
+  final _formKey = GlobalKey<FormState>();
   
   String? _opcionTrato = 'Sr';
   String? photoPath;
@@ -86,9 +87,11 @@ class _PantallaregistroState extends State<Pantallaregistro> {
       body: Container(
         alignment: AlignmentGeometry.center,
         child: SingleChildScrollView(
-          child:Column(
-            children: [
-              SizedBox(height: 20,),
+          child:Form(
+            key: _formKey,
+            child:Row(
+              children: [
+                SizedBox(height: 20,),
               SizedBox(
                 width: 400,
                 child: Row(
@@ -127,6 +130,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                     labelText: "Nombre",
                     border: OutlineInputBorder(),
                   ),
+                  validator: (value) => Validators.validateEmpty(value),
                   onChanged: (value) => _nombre = value,
                 ), 
               ),
@@ -138,6 +142,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                     labelText: "Contraseña",
                     border: OutlineInputBorder(),
                   ),
+                  validator: (value) => Validators.validateEmpty(value),
                   onChanged: (value) => _contrasena = value,
                 ), 
               ),
@@ -149,6 +154,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                     labelText: "Repita la contraseña",
                     border: OutlineInputBorder(),
                   ),
+                  validator: (value) => Validators.validateEmpty(value),
                   onChanged: (value) => _contrasena2= value,
                 ), 
               ),
@@ -199,6 +205,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                     labelText: "Edad",
                     border: OutlineInputBorder(),
                   ),
+                  validator: (value) => Validators.validateEmpty(value),
                   onChanged:(value) => _edad = int.parse(value),
                 ), 
               ),
@@ -210,6 +217,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                     labelText: "Lugar de nacimiento",
                     border: OutlineInputBorder(),
                   ),
+                  validator: (value) => Validators.validateEmpty(value),
                   onChanged: (value) => _nacimiento = value,
                 ), 
               ),
@@ -254,7 +262,8 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                   ],
                 ),
               )
-            ],
+              ]              
+            )
           ),
         ),
       ) ,

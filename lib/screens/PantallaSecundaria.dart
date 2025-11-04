@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
+import 'package:jessicalopesc1/utils/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/utils/button_styles.dart';
 import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
@@ -18,7 +19,7 @@ class _PantallasecundariaState extends State<Pantallasecundaria> {
     return Scaffold(
       drawer: CustomDrawer(user: widget.user,),
       appBar: AppBar(
-        backgroundColor:Colors.blueGrey,
+        backgroundColor:PantallaConstantes.fondoAppBar,
         title: Text("Pagina Secundaria"),
         
       ),

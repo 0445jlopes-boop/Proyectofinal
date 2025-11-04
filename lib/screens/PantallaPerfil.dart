@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/models/user.dart';
+import 'package:jessicalopesc1/utils/Pantalla_constantes.dart';
 
 class Pantallaperfil extends StatefulWidget {
   const Pantallaperfil({super.key, required this.user});
@@ -15,7 +19,7 @@ class _PantallaperfilState extends State<Pantallaperfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: PantallaConstantes.fondoAppBar,
         title: Text("Perfil"),
       ),
       body: Container(
@@ -24,19 +28,37 @@ class _PantallaperfilState extends State<Pantallaperfil> {
           child: Column(
             children: [
               SizedBox(
-                width: 500,
+                width: PantallaConstantes.ancho,
                 child: Column(
                   children: [
                     Text("Su trato es: "+widget.user.trato),
-                    SizedBox(height: 5,),
+                    SizedBox(height: PantallaConstantes.sepaadorPequeno,),
                     Text("Su nombre es: "+widget.user.nombre),
-                    SizedBox(height: 5,),
+                    SizedBox(height: PantallaConstantes.sepaadorPequeno,),
                     Text("Su contraseña es: "+widget.user.contrasena),
-                    SizedBox(height: 5,),
-                    Image.asset(widget.user.imagen),
-                    SizedBox(height: 5,),
+                    SizedBox(height: PantallaConstantes.sepaadorPequeno,),
+                    widget.user.imagen != null ?
+                     Center(
+                      child: SizedBox(
+                        height: 350,
+                        child: kIsWeb
+                          ? Image.network(
+                            widget.user.imagen!,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.fill,
+                          )
+                          : Image.file(
+                            File(widget.user.imagen!),
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.fill,
+                          ),
+                      ) ,
+                     ): SizedBox(),
+                    SizedBox(height: PantallaConstantes.sepaadorPequeno,),
                     Text("Su edad es: "+widget.user.edad.toString()),
-                    SizedBox(height: 5,),
+                    SizedBox(height: PantallaConstantes.sepaadorPequeno,),
                     Text("Su lugar de nacimiento es: "+widget.user.nacimiento),
                   ],
                 ),

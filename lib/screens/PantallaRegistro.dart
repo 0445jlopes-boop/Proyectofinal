@@ -41,7 +41,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
             const snackBar = SnackBar(content: Text('El usuario introducido ya existe'));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }else {
-            User usuario =User(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!);
+            User usuario =User(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: false);
             LogicaUsuarios.anadirUsuario(usuario);
               Navigator.push(
                 context,

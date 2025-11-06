@@ -14,13 +14,14 @@ class Pantallasecundaria extends StatefulWidget {
 }
 
 class _PantallasecundariaState extends State<Pantallasecundaria> {
+  late List<BottomNavigationBarItem> items ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: CustomDrawer(user: widget.user,),
       appBar: AppBar(
         backgroundColor:PantallaConstantes.fondoAppBar,
-        title: Text("Pagina Secundaria"),
+        title: Text("Bienvenido "+widget.user.nombre),
         
       ),
       body: Container(
@@ -48,6 +49,9 @@ class _PantallasecundariaState extends State<Pantallasecundaria> {
         ),
         ),
       ), 
+      bottomNavigationBar: BottomNavigationBar(
+        items: items
+      ),
     );
   }
 }

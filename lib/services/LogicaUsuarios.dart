@@ -7,9 +7,19 @@ class LogicaUsuarios {
       nombre: "admin",
       contrasena: "admin",
       edad: 18,
-      nacimiento: "Alcañiz",
-      imagen: 'assets/images/logo.png'
-      )
+      nacimiento: "Zaragoza",
+      imagen: 'assets/images/logo.png',
+      isAdmin: true
+    ),
+    User(
+      trato: "Sr", 
+      nombre: "Tunombre", 
+      contrasena: "Tunombre", 
+      edad: 23, 
+      nacimiento: "Zaragoza", 
+      imagen: 'assets/images/logo.png',
+      isAdmin: false
+    )
   ];
   static void anadirUsuario(User usuario){
     _listaUsuarios.add(usuario);

@@ -17,6 +17,14 @@ class Controllersregistro {
         return LogicaUsuarios.getListaUsuarios()[i];
       }
     }
-    return User(trato: "error", nombre: "error", contrasena: "error", edad: 0, nacimiento: "error", imagen: "assets\images\logo.png");
+    return User(trato: "error", nombre: "error", contrasena: "error", edad: 0, nacimiento: "error", imagen: "assets\images\logo.png", isAdmin: false);
+  }
+  static String? extraerContrasena(String nombre){
+      for(var i = 0; i <= LogicaUsuarios.getListaUsuarios().length-1; i++){
+        if(LogicaUsuarios.getListaUsuarios()[i].getNombre() == nombre){
+          return LogicaUsuarios.getListaUsuarios()[i].getContrasena();
+        }
+      }
+      return null;
   }
 }

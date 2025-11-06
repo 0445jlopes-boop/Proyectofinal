@@ -5,6 +5,7 @@ class User{
   int edad;
   String nacimiento;
   String imagen;
+  bool isAdmin;
 
   User({
     required this.trato,
@@ -12,7 +13,8 @@ class User{
     required this.contrasena,
     required this.edad,
     required this.nacimiento,
-    required this.imagen
+    required this.imagen,
+    required this.isAdmin
   });
 
   String getNombre(){
@@ -32,6 +34,9 @@ class User{
   }
   String getImagen(){
     return imagen;
+  }
+  bool getIsAdmin(){
+    return isAdmin;
   }
 
 }

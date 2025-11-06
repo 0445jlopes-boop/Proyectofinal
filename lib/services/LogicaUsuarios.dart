@@ -13,9 +13,18 @@ class LogicaUsuarios {
     ),
     User(
       trato: "Sr", 
-      nombre: "Tunombre", 
-      contrasena: "Tunombre", 
-      edad: 23, 
+      nombre: "Jessica", 
+      contrasena: "Jessica", 
+      edad: 18, 
+      nacimiento: "Zaragoza", 
+      imagen: 'assets/images/logo.png',
+      isAdmin: false
+    ),
+     User(
+      trato: "Sr", 
+      nombre: "Gian", 
+      contrasena: "Gian", 
+      edad: 19, 
       nacimiento: "Zaragoza", 
       imagen: 'assets/images/logo.png',
       isAdmin: false

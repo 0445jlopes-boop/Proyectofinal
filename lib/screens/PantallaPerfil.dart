@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/models/user.dart';
-import 'package:jessicalopesc1/utils/Pantalla_constantes.dart';
+import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 
 class Pantallaperfil extends StatefulWidget {
   const Pantallaperfil({super.key, required this.user});

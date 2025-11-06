@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
-import 'package:jessicalopesc1/utils/Pantalla_constantes.dart';
-import 'package:jessicalopesc1/utils/button_styles.dart';
+import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
+import 'package:jessicalopesc1/config/utils/button_styles.dart';
 import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
 class Pantallasecundaria extends StatefulWidget {

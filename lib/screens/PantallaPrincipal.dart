@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
 import 'package:jessicalopesc1/screens/PantallaRegistro.dart';
 import 'package:jessicalopesc1/screens/PantallaSecundaria.dart';
-import 'package:jessicalopesc1/utils/Pantalla_constantes.dart';
-import 'package:jessicalopesc1/utils/Validators.dart';
-import 'package:jessicalopesc1/utils/button_styles.dart';
+import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
+import 'package:jessicalopesc1/config/utils/Validators.dart';
+import 'package:jessicalopesc1/config/utils/button_styles.dart';
+import 'package:jessicalopesc1/widgets/Dialogo.dart';
 
 class PantallaPrincipal extends StatefulWidget {
   const PantallaPrincipal({super.key});
@@ -34,67 +35,6 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
     }
   }
 
-  void _olvidasteContrasena(BuildContext context){
-    showDialog(
-      context: context, 
-      builder: (BuildContext context){
-        return AlertDialog(
-          title: const Text("Recuperar contraseña"),
-          content:  TextField(
-            controller: _controladorTextFormField ,
-            decoration: InputDecoration(
-              labelText: "Nombre de usuaio",
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: (){
-                _controladorTextFormField.clear();
-                Navigator.pop(context);
-              }, 
-              child: const Text("Cancelar")
-            ),
-            ElevatedButton(
-              onPressed: (){
-                final usuario = _controladorTextFormField.text.trim();
-                final contrasena = Controllersregistro.extraerContrasena(usuario);
-                if(contrasena != null){
-                  showDialog(
-                    context: context, 
-                    builder: (_)  => AlertDialog(
-                      title: const Text("Contraseña encontrada:"),
-                      content: Text("Su contraseña es: $contrasena"),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context), 
-                          child: const Text("Cerrar")
-                        )
-                      ],
-                    ) 
-                  );
-                }else{
-                  showDialog(
-                    context: context, 
-                    builder: (_)  => AlertDialog(
-                      title: const Text("Contraseña no encontrada:"),
-                      content: Text("Su contraseña no se ha podido enontrar ya que no hay una contraseña asociada al nombre indicado"),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context), 
-                          child: const Text("Cerrar")
-                        )
-                      ],
-                    ) 
-                  );
-                }
-              },
-              child: Text("Recuperar contraseña"),
-            )
-          ],
-        );
-      }
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +80,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                       ),
                       SizedBox(height: PantallaConstantes.sepaadorPequeno,),
                       TextButton(
-                        onPressed: () => _olvidasteContrasena(context) , 
+                        onPressed: () => Dialogo.olvidasteContrasena(context), 
                         child: Text("¿Olvidaste tu contraseña?")
                       ),
                       SizedBox(height: PantallaConstantes.separador),

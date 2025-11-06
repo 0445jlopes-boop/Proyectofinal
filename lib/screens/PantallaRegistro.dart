@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
-import 'package:jessicalopesc1/utils/CameraGalleryService.dart';
+import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
 import 'package:jessicalopesc1/screens/PantallaSecundaria.dart';
 import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
-import 'package:jessicalopesc1/utils/Pantalla_constantes.dart';
-import 'package:jessicalopesc1/utils/Validators.dart';
-import 'package:jessicalopesc1/utils/button_styles.dart';
+import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
+import 'package:jessicalopesc1/config/utils/Validators.dart';
+import 'package:jessicalopesc1/config/utils/button_styles.dart';
 
 class Pantallaregistro extends StatefulWidget {
   const Pantallaregistro({super.key});
@@ -81,7 +81,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                   child: Row(
                     children: [
                       Text("Trato"),
-                      SizedBox(width: 5,),
+                      SizedBox(width: PantallaConstantes.sepaadorPequeno,),
                       Text("Sr."),
                       Radio(
                         value: "Sr",

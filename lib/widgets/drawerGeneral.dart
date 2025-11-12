@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/models/user.dart';
-import 'package:jessicalopesc1/screens/PantallaPerfil.dart';
+import 'package:jessicalopesc1/screens/User/PantallaPerfil.dart';
 import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -19,7 +20,7 @@ class __CustomDrawerState extends State<CustomDrawer> {
         children: [
           Container(
             height: 65,
-            color: Colors.blueGrey,
+            color: PantallaConstantes.fondoAppBar,
             child: DrawerHeader(
               child: Row(
                 children: [

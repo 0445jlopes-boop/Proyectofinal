@@ -6,7 +6,7 @@ import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
 import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
-import 'package:jessicalopesc1/screens/PantallaSecundaria.dart';
+import 'package:jessicalopesc1/screens/User/PantallaSecundariaUsuario.dart';
 import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/Validators.dart';
@@ -45,7 +45,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
             LogicaUsuarios.anadirUsuario(usuario);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context)=> Pantallasecundaria(user: usuario,)),
+                MaterialPageRoute(builder: (context)=> Pantallasecundariausuario(user: usuario,)),
               );
             }      
         }else{

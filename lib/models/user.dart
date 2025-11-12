@@ -16,6 +16,7 @@ class User{
     required this.imagen,
     required this.isAdmin
   });
+ 
 
   String getNombre(){
     return nombre;

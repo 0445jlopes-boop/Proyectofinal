@@ -5,16 +5,15 @@ import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
 import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
-class Pantallasecundaria extends StatefulWidget {
-  const Pantallasecundaria({super.key, required this.user});
+class Pantallasecundariausuario extends StatefulWidget {
+  const Pantallasecundariausuario({super.key, required this.user});
   final User user;
 
   @override
-  State<Pantallasecundaria> createState() => _PantallasecundariaState();
+  State<Pantallasecundariausuario> createState() => _PantallasecundariausuarioState();
 }
 
-class _PantallasecundariaState extends State<Pantallasecundaria> {
-  late List<BottomNavigationBarItem> items ;
+class _PantallasecundariausuarioState extends State<Pantallasecundariausuario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,9 +48,7 @@ class _PantallasecundariaState extends State<Pantallasecundaria> {
         ),
         ),
       ), 
-      bottomNavigationBar: BottomNavigationBar(
-        items: items
-      ),
+
     );
   }
 }

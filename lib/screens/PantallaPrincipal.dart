@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
+import 'package:jessicalopesc1/controllers/user_controller.dart';
 import 'package:jessicalopesc1/screens/PantallaRegistro.dart';
-import 'package:jessicalopesc1/screens/PantallaSecundaria.dart';
+import 'package:jessicalopesc1/screens/Admin/PantallaSecundariaAdmin.dart';
+import 'package:jessicalopesc1/screens/User/PantallaSecundariaUsuario.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/Validators.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
@@ -25,10 +27,20 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
   void _validarUsuario(){
     final isFormValid = _formKey.currentState!.validate();
     if(isFormValid && Controllersregistro.userExiste(_nombre, _contrasena)){
-      Navigator.push(
-        context, 
-        MaterialPageRoute(builder: (contxt) => Pantallasecundaria(user: Controllersregistro.extraerUsuario(_nombre, _contrasena)))
-      );
+      if(Controllersregistro.extraerUsuario(_nombre, _contrasena).isAdmin){
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => Pantallasecundariaadmin(user: Controllersregistro.extraerUsuario(_nombre, _contrasena)))
+        );
+
+      }else{
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => Pantallasecundariausuario(user: Controllersregistro.extraerUsuario(_nombre, _contrasena)))
+        );
+      }
+      
+      
     }else{
       const snackBar = SnackBar(content: Text('Este usuario no existe'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -82,6 +94,20 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                       TextButton(
                         onPressed: () => Dialogo.olvidasteContrasena(context), 
                         child: Text("¿Olvidaste tu contraseña?")
+                      ),
+                      SizedBox(height: PantallaConstantes.separador),
+                      ElevatedButton(
+                        style: Customstyles.botonesDefecto,
+                        onPressed: () async{
+                          final userCredential = await UserController.loginGoogle();
+                          if(userCredential!= null){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Pantallasecundariausuario(user: Controllersregistro.extraerUsuario(UserController.nombre!, "")))
+                            );
+                          }
+                        },
+                        child: Text("Acceder con Google")
                       ),
                       SizedBox(height: PantallaConstantes.separador),
                       ElevatedButton(

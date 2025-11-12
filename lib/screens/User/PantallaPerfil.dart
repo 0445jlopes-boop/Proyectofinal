@@ -44,7 +44,7 @@ class _PantallaperfilState extends State<Pantallaperfil> {
                         child: kIsWeb
                           ? Image.network(
                             widget.user.imagen!,
-                            width: 100,
+                            width: 200,
                             height: 100,
                             fit: BoxFit.fill,
                           )

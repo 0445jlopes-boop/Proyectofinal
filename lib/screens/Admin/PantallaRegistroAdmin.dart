@@ -1,61 +1,52 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
-import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
-import 'package:jessicalopesc1/models/user.dart';
-import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
-import 'package:jessicalopesc1/screens/User/PantallaSecundariaUsuario.dart';
-import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
+import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
 import 'package:jessicalopesc1/config/utils/Validators.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
+import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
+import 'package:jessicalopesc1/models/user.dart';
+import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
 
-class Pantallaregistro extends StatefulWidget {
-  const Pantallaregistro({super.key});
+class Pantallaregistroadmin extends StatefulWidget {
+  const Pantallaregistroadmin({super.key});
 
   @override
-  State<Pantallaregistro> createState() => _PantallaregistroState();
+  State<Pantallaregistroadmin> createState() => _PantallaregistroadminState();
 }
 
-
-class _PantallaregistroState extends State<Pantallaregistro> {
+class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
   final _formKey = GlobalKey<FormState>();
   final List<String> _items = ["Zaragoza","Madrid","Barcelona","Toledo"];
   String? _opcionTrato = 'Sr';
   String photoPath ="";
-  bool isChecked = false;
   String _nombre="";
   String _contrasena ="";
   String _contrasena2 ="";
   int _edad=0;
   String _nacimiento ="Zaragoza";
+  bool _isAdmin = false;
 
   void _validarUsuario(){
     final isFormValid = _formKey.currentState!.validate();
     if(isFormValid){
-      if(isChecked){
         if(photoPath != "" && photoPath != null && photoPath.isEmpty!){
           if(Controllersregistro.userExiste(_nombre, _contrasena)){
             const snackBar = SnackBar(content: Text('El usuario introducido ya existe'));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }else {
-            User usuario =User(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: false);
+            if(_isAdmin){
+              photoPath="assets/images/logo.png";
+            }
+            UserOfMyApp usuario =UserOfMyApp(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: _isAdmin);
             LogicaUsuarios.anadirUsuario(usuario);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context)=> Pantallasecundariausuario(user: usuario,)),
-              );
+              
             }      
         }else{
           const snackBar = SnackBar(content: Text('Debe añadir una imagen'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } 
-      }else{
-        const snackBar = SnackBar(content: Text('Debe aceptar los términos y las condiciones'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }      
+        }     
     }     
   }
 
@@ -221,12 +212,12 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                   width: PantallaConstantes.ancho,
                   child: Row(
                     children: [
-                      Text("Aceptar terminos y condiciones"),
+                      Text("Usuario administrador"),
                       Checkbox(
-                        value: isChecked, 
+                        value: _isAdmin, 
                         onChanged: (bool? value){
                           setState(() {
-                            isChecked = value!;
+                            _isAdmin = value!;
                           });
                         },
                       )
@@ -247,10 +238,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                       ElevatedButton(
                         style: Customstyles.botonesDefecto,
                         onPressed: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context)=> const PantallaPrincipal()),
-                          );
+                          Navigator.pop(context);
                         }, 
                         child: Text("Cancelar")
                       )

@@ -1,4 +1,4 @@
-class User{
+class UserOfMyApp{
   String trato;
   String nombre;
   String contrasena;
@@ -7,7 +7,7 @@ class User{
   String imagen;
   bool isAdmin;
 
-  User({
+  UserOfMyApp({
     required this.trato,
     required this.nombre,
     required this.contrasena,

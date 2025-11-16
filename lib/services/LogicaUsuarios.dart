@@ -1,8 +1,8 @@
 import 'package:jessicalopesc1/models/user.dart';
 
 class LogicaUsuarios {
-  static final List<User> _listaUsuarios = [
-    User(
+  static final List<UserOfMyApp> _listaUsuarios = [
+    UserOfMyApp(
       trato: "Sra",
       nombre: "admin",
       contrasena: "admin",
@@ -11,7 +11,7 @@ class LogicaUsuarios {
       imagen: 'assets/images/logo.png',
       isAdmin: true
     ),
-    User(
+    UserOfMyApp(
       trato: "Sr", 
       nombre: "Jessica", 
       contrasena: "Jessica", 
@@ -20,7 +20,7 @@ class LogicaUsuarios {
       imagen: 'assets/images/logo.png',
       isAdmin: false
     ),
-     User(
+     UserOfMyApp(
       trato: "Sr", 
       nombre: "Gian", 
       contrasena: "Gian", 
@@ -30,10 +30,10 @@ class LogicaUsuarios {
       isAdmin: false
     )
   ];
-  static void anadirUsuario(User usuario){
+  static void anadirUsuario(UserOfMyApp usuario){
     _listaUsuarios.add(usuario);
   }
-  static List<User> getListaUsuarios(){
+  static List<UserOfMyApp> getListaUsuarios(){
     return _listaUsuarios;
   }
 

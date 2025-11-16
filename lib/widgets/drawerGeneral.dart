@@ -7,7 +7,7 @@ import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key, required this.user});
-  final User user;
+  final UserOfMyApp user;
   @override
   State<CustomDrawer> createState() => __CustomDrawerState();
 }

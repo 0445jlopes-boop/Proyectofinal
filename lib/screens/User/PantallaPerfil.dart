@@ -7,7 +7,7 @@ import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 
 class Pantallaperfil extends StatefulWidget {
   const Pantallaperfil({super.key, required this.user});
-  final User user;
+  final UserOfMyApp user;
 
   @override
   State<Pantallaperfil> createState() => _PantallaperfilState();

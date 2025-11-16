@@ -7,7 +7,7 @@ import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
 class Pantallasecundariausuario extends StatefulWidget {
   const Pantallasecundariausuario({super.key, required this.user});
-  final User user;
+  final UserOfMyApp user;
 
   @override
   State<Pantallasecundariausuario> createState() => _PantallasecundariausuarioState();

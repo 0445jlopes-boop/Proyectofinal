@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
 import 'package:jessicalopesc1/models/user.dart';
-import 'package:jessicalopesc1/screens/Admin/PantallaGestionInventario.dart';
 import 'package:jessicalopesc1/screens/Admin/PantallaGestionPedidos.dart';
 import 'package:jessicalopesc1/screens/Admin/PantallaGestionProductos.dart';
 import 'package:jessicalopesc1/screens/Admin/PantallaGestionUsuarios.dart';
@@ -10,7 +9,7 @@ import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
 class Pantallasecundariaadmin extends StatefulWidget {
   const Pantallasecundariaadmin({super.key, required this.user});
-  final User user;
+  final UserOfMyApp user;
   @override
   State<Pantallasecundariaadmin> createState() => _PantallasecundariaadminState();
 }
@@ -31,12 +30,12 @@ class _PantallasecundariaadminState extends State<Pantallasecundariaadmin> {
             children: [
               ElevatedButton(
                 style: Customstyles.botonesDefecto,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Pantallagestionusuarios(),
-                  ),
-                ),
+                onPressed: (){
+                  Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context)=> Pantallagestionusuarios(user: widget.user)),
+                  );
+                },
                 child: Row(
                   children: [Icon(Icons.person_2), Text("Gestión de Usuarios")],
                 ),
@@ -44,12 +43,12 @@ class _PantallasecundariaadminState extends State<Pantallasecundariaadmin> {
               SizedBox(height: PantallaConstantes.separador,),
               ElevatedButton(
                 style: Customstyles.botonesDefecto,
-                onPressed: () => Navigator.push(
+                onPressed: (){
+                  Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => Pantallagestionproductos(),
-                  ),
-                ),
+                  MaterialPageRoute(builder: (context)=> const Pantallagestionproductos()),
+                  );
+               },
                 child: Row(
                   children: [
                     Icon(Icons.shopping_bag),
@@ -70,22 +69,6 @@ class _PantallasecundariaadminState extends State<Pantallasecundariaadmin> {
                   children: [
                     Icon(Icons.shopping_cart),
                     Text("Gestión de Pedidos"),
-                  ],
-                ),
-              ),
-              SizedBox(height: PantallaConstantes.separador,),
-              ElevatedButton(
-                style: Customstyles.botonesDefecto,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Pantallagestioninventario(),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.inventory),
-                    Text("Gestión de Inventario"),
                   ],
                 ),
               ),

@@ -10,7 +10,7 @@ import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/Validators.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
 import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
-import 'package:jessicalopesc1/widgets/Dialogo.dart';
+import 'package:jessicalopesc1/widgets/DialogoContrasena.dart';
 import 'package:jessicalopesc1/models/user.dart';
 
 class PantallaPrincipal extends StatefulWidget {
@@ -114,7 +114,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                       ),
                       SizedBox(height: PantallaConstantes.sepaadorPequeno,),
                       TextButton(
-                        onPressed: () => Dialogo.olvidasteContrasena(context), 
+                        onPressed: () => DialogoContrasena.olvidasteContrasena(context), 
                         child: Text("¿Olvidaste tu contraseña?")
                       ),
                       SizedBox(height: PantallaConstantes.separador),

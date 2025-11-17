@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
 
-class Dialogo {
+class DialogoContrasena {
   static final TextEditingController _controladorTextFormField = TextEditingController(); //Esto permite borrar y asignar texto a un Text form field, lo suaremos para motrar la contraseña en el alrt dialog
 
   static void olvidasteContrasena(BuildContext context){

@@ -20,10 +20,19 @@ class LogicaUsuarios {
       imagen: 'assets/images/logo.png',
       isAdmin: false
     ),
-     UserOfMyApp(
+    UserOfMyApp(
       trato: "Sr", 
       nombre: "Gian", 
       contrasena: "Gian", 
+      edad: 19, 
+      nacimiento: "Zaragoza", 
+      imagen: 'assets/images/logo.png',
+      isAdmin: false
+    ),
+    UserOfMyApp(
+      trato: "Sr", 
+      nombre: "a", 
+      contrasena: "a", 
       edad: 19, 
       nacimiento: "Zaragoza", 
       imagen: 'assets/images/logo.png',
@@ -35,6 +44,9 @@ class LogicaUsuarios {
   }
   static List<UserOfMyApp> getListaUsuarios(){
     return _listaUsuarios;
+  }
+  static bool eliminarUsuario(UserOfMyApp usuario){
+     return _listaUsuarios.remove(usuario);
   }
 
   

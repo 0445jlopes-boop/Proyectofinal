@@ -40,4 +40,8 @@ class UserOfMyApp{
     return isAdmin;
   }
 
+  void setTrato(String _trato){
+    this.trato = _trato;
+  }
+
 }

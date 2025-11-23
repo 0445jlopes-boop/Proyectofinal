@@ -1,3 +1,4 @@
+
 import 'package:jessicalopesc1/models/user.dart';
 
 class LogicaUsuarios {
@@ -9,7 +10,8 @@ class LogicaUsuarios {
       edad: 18,
       nacimiento: "Zaragoza",
       imagen: 'assets/images/logo.png',
-      isAdmin: true
+      isAdmin: true,
+      isBlok: false
     ),
     UserOfMyApp(
       trato: "Sr", 
@@ -18,7 +20,8 @@ class LogicaUsuarios {
       edad: 18, 
       nacimiento: "Zaragoza", 
       imagen: 'assets/images/logo.png',
-      isAdmin: false
+      isAdmin: false,
+      isBlok: false
     ),
     UserOfMyApp(
       trato: "Sr", 
@@ -27,7 +30,8 @@ class LogicaUsuarios {
       edad: 19, 
       nacimiento: "Zaragoza", 
       imagen: 'assets/images/logo.png',
-      isAdmin: false
+      isAdmin: false,
+      isBlok: false
     ),
     UserOfMyApp(
       trato: "Sr", 
@@ -36,18 +40,26 @@ class LogicaUsuarios {
       edad: 19, 
       nacimiento: "Zaragoza", 
       imagen: 'assets/images/logo.png',
-      isAdmin: false
+      isAdmin: false,
+      isBlok: false
     )
   ];
+
+
   static void anadirUsuario(UserOfMyApp usuario){
     _listaUsuarios.add(usuario);
   }
-  static List<UserOfMyApp> getListaUsuarios(){
+   static List<UserOfMyApp> getListaUsuarios(){
     return _listaUsuarios;
   }
   static bool eliminarUsuario(UserOfMyApp usuario){
-     return _listaUsuarios.remove(usuario);
+
+    return _listaUsuarios.remove(usuario);
+    
   }
+ 
+
+
 
   
 }

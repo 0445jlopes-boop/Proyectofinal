@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 class Producto {
   String nombre;
@@ -29,19 +29,19 @@ class Producto {
   double getPrecio(){
     return precio;
   }
-  void setNombre(){
+  void setNombre(String nombre){
     this.nombre=nombre;
   }
-  void setImagen(){
+  void setImagen(String imagen){
     this.imagen =imagen;
   }
-  void setDescripcion(){
+  void setDescripcion(String descripcion){
     this.descripcion =descripcion;
   }
-  void setStock(){
+  void setStock(int stock){
     this.stock= stock;
   }
-  void setPrecio(){
+  void setPrecio(double precio){
     this.precio= precio;
   }
 }

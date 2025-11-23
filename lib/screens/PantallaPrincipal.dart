@@ -7,7 +7,7 @@ import 'package:jessicalopesc1/screens/User/PantallaRegistro.dart';
 import 'package:jessicalopesc1/screens/Admin/PantallaSecundariaAdmin.dart';
 import 'package:jessicalopesc1/screens/User/PantallaSecundariaUsuario.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
-import 'package:jessicalopesc1/config/utils/Validators.dart';
+import 'package:jessicalopesc1/config/utils/ValidatorsUser.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
 import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
 import 'package:jessicalopesc1/widgets/DialogoContrasena.dart';
@@ -34,7 +34,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
           MaterialPageRoute(builder: (context) => Pantallasecundariausuario(user: Controllersregistro.extraerUsuario(UserController.nombre!, "")))
         );
     }else if(Controllersregistro.userExiste(UserController.nombre!, "")!= true){
-      UserOfMyApp usuario = UserOfMyApp(trato: "Sr", nombre: UserController.nombre!, contrasena: "", edad: 18, nacimiento: "Zaragoza", imagen: UserController.foto!, isAdmin: false);
+      UserOfMyApp usuario = UserOfMyApp(trato: "Sr", nombre: UserController.nombre!, contrasena: "", edad: 18, nacimiento: "Zaragoza", imagen: UserController.foto!, isAdmin: false, isBlok: false);
       LogicaUsuarios.anadirUsuario(usuario);
       Navigator.push(
         context,
@@ -46,24 +46,34 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
     }
   }
 
-  void _validarUsuario(){
+  void _validarUsuario() {
     final isFormValid = _formKey.currentState!.validate();
-    if(isFormValid && Controllersregistro.userExiste(_nombre, _contrasena)){
-      if(Controllersregistro.extraerUsuario(_nombre, _contrasena).isAdmin){
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => Pantallasecundariaadmin(user: Controllersregistro.extraerUsuario(_nombre, _contrasena)))
-        );
-
+    if (isFormValid && Controllersregistro.userExiste(_nombre, _contrasena)) {
+      if (Controllersregistro.extraerUsuario(_nombre, _contrasena).isBlok ==false) {
+        if (Controllersregistro.extraerUsuario(_nombre, _contrasena).isAdmin) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Pantallasecundariaadmin(
+                user: Controllersregistro.extraerUsuario(_nombre, _contrasena),
+              ),
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Pantallasecundariausuario(
+                user: Controllersregistro.extraerUsuario(_nombre, _contrasena),
+              ),
+            ),
+          );
+        }
       }else{
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => Pantallasecundariausuario(user: Controllersregistro.extraerUsuario(_nombre, _contrasena)))
-        );
+        const snackBar = SnackBar(content: Text('Este usuario se encuentra bloqueado'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
-      
-      
-    }else{
+    } else {
       const snackBar = SnackBar(content: Text('Este usuario no existe'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -97,7 +107,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                            labelText: "Nombre",
                            border: OutlineInputBorder(),
                           ),         
-                          validator: (value) =>  Validators.validateEmpty(value),                 
+                          validator: (value) =>  ValidatorsUsers.validateEmpty(value),                 
                           onChanged: (value) => _nombre = value,                          
                         ), 
                       ),
@@ -108,7 +118,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                             labelText: "Contraseña",
                             border: OutlineInputBorder(),
                           ),
-                          validator: (value) =>  Validators.validateEmpty(value),
+                          validator: (value) =>  ValidatorsUsers.validateEmpty(value),
                           onChanged: (value) => _contrasena = value,
                         ), 
                       ),

@@ -6,6 +6,7 @@ class UserOfMyApp{
   String nacimiento;
   String imagen;
   bool isAdmin;
+  bool isBlok;
 
   UserOfMyApp({
     required this.trato,
@@ -14,7 +15,8 @@ class UserOfMyApp{
     required this.edad,
     required this.nacimiento,
     required this.imagen,
-    required this.isAdmin
+    required this.isAdmin,
+    required this.isBlok
   });
  
 
@@ -39,9 +41,34 @@ class UserOfMyApp{
   bool getIsAdmin(){
     return isAdmin;
   }
+  bool getIsBlok(){
+    return isBlok;
+  }
 
   void setTrato(String _trato){
     this.trato = _trato;
   }
+  void setNombre(String _nombre){
+    this.nombre = _nombre;
+  }
+  void setContrasena(String _contrasena){
+    this.contrasena = _contrasena;
+  }
+  void setEdad(int _edad){
+    this.edad = _edad;
+  }
+  void setNacimiento(String _nacimiento){
+    this.nacimiento = _nacimiento;
+  }
+  void setImagen(String _imagen){
+    this.imagen = _imagen;
+  }
+  void setAdmin(bool _isAdmin){
+    this.isAdmin = _isAdmin;
+  }
+  void setIsBlok(bool _isBlok){
+    this.isBlok = _isBlok;
+  }
+
 
 }

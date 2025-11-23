@@ -9,7 +9,7 @@ import 'package:jessicalopesc1/screens/PantallaPrincipal.dart';
 import 'package:jessicalopesc1/screens/User/PantallaSecundariaUsuario.dart';
 import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
-import 'package:jessicalopesc1/config/utils/Validators.dart';
+import 'package:jessicalopesc1/config/utils/ValidatorsUser.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
 
 class Pantallaregistro extends StatefulWidget {
@@ -41,7 +41,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
             const snackBar = SnackBar(content: Text('El usuario introducido ya existe'));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }else {
-            UserOfMyApp usuario =UserOfMyApp(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: false);
+            UserOfMyApp usuario =UserOfMyApp(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: false, isBlok: false);
             LogicaUsuarios.anadirUsuario(usuario);
               Navigator.push(
                 context,
@@ -114,7 +114,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                        labelText: "Nombre",
                         border: OutlineInputBorder(),
                     ),
-                   validator: (value) => Validators.validateEmpty(value),
+                   validator: (value) => ValidatorsUsers.validateEmpty(value),
                    onChanged: (value) => _nombre = value,
                   ), 
                 ),
@@ -127,7 +127,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                       labelText: "Contraseña",
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => Validators.validateEmpty(value),
+                    validator: (value) => ValidatorsUsers.validateEmpty(value),
                     onChanged: (value) => _contrasena = value,
                   ), 
                 ),
@@ -140,7 +140,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                       labelText: "Repita la contraseña",
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) =>  Validators.validatePassword(value,_contrasena),
+                    validator: (value) =>  ValidatorsUsers.validatePassword(value,_contrasena),
                     onChanged: (value) => _contrasena2= value,
                   ), 
                 ),
@@ -193,7 +193,7 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                       labelText: "Edad",
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => Validators.validateEdad(int.tryParse(value!)),
+                    validator: (value) => ValidatorsUsers.validateEdad(int.tryParse(value!)),
                     onChanged:(value) => _edad = int.parse(value),
                   ), 
                 ),

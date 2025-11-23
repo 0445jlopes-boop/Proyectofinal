@@ -5,6 +5,7 @@ import 'package:jessicalopesc1/config/utils/icon_styles.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/screens/Admin/PantallaRegistroAdmin.dart';
 import 'package:jessicalopesc1/services/LogicaUsuarios.dart';
+import 'package:jessicalopesc1/widgets/DialogoEditarUsuario.dart';
 import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
 class Pantallagestionusuarios extends StatefulWidget {
@@ -46,8 +47,8 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
                                   children: [
                                     IconButton(
                                       color: IconStyles.iconoEditar,
-                                      onPressed: (){
-                                        
+                                      onPressed: () { 
+                                         DialogoEditarUsuario().editarUsuario(context, user);
                                         setState(() {});
                                       },
                                       icon: Icon(Icons.edit),
@@ -56,8 +57,17 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
                                       width: PantallaConstantes.sepaadorPequeno,
                                     ),
                                     IconButton(
-                                      color: IconStyles.iconoBloqueado,
-                                      onPressed: null,
+                                      color: user.isBlok
+                                          ? IconStyles.iconoBloqueado
+                                          : IconStyles.iconoDesbloqueado,
+                                      onPressed: () {
+                                        if (user.isBlok) {
+                                          user.isBlok = false;
+                                        } else {
+                                          user.isBlok = true;
+                                        }
+                                        setState(() {});
+                                      },
                                       icon: Icon(Icons.block),
                                     ),
                                     SizedBox(
@@ -76,7 +86,7 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
                                         : showDialog(
                                           context: context, 
                                           builder: (BuildContext context){
-                                            return AlertDialog( title: Text("Error al eliminar el suruario"));
+                                            return AlertDialog( title: Text("Error al eliminar el usuario"));
                                           }
                                         );
                                         setState(() {});

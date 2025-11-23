@@ -6,4 +6,5 @@ class IconStyles {
   static const Color iconoBloqueado = Colors.grey;
   static const Color iconoEditar = Colors.blueAccent;
   static const Color iconoEliminar = Colors.redAccent;
+  static const Color iconoDesbloqueado = Colors.tealAccent;
 }

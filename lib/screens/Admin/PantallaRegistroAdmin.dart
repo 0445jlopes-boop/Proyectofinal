@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
-import 'package:jessicalopesc1/config/utils/Validators.dart';
+import 'package:jessicalopesc1/config/utils/ValidatorsUser.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
 import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
 import 'package:jessicalopesc1/models/user.dart';
@@ -39,7 +39,7 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
             if(_isAdmin){
               photoPath="assets/images/logo.png";
             }
-            UserOfMyApp usuario =UserOfMyApp(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: _isAdmin);
+            UserOfMyApp usuario =UserOfMyApp(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: _isAdmin, isBlok: false);
             LogicaUsuarios.anadirUsuario(usuario);
               
             }      
@@ -105,7 +105,7 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
                        labelText: "Nombre",
                         border: OutlineInputBorder(),
                     ),
-                   validator: (value) => Validators.validateEmpty(value),
+                   validator: (value) => ValidatorsUsers.validateEmpty(value),
                    onChanged: (value) => _nombre = value,
                   ), 
                 ),
@@ -118,7 +118,7 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
                       labelText: "Contraseña",
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => Validators.validateEmpty(value),
+                    validator: (value) => ValidatorsUsers.validateEmpty(value),
                     onChanged: (value) => _contrasena = value,
                   ), 
                 ),
@@ -131,7 +131,7 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
                       labelText: "Repita la contraseña",
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) =>  Validators.validatePassword(value,_contrasena),
+                    validator: (value) =>  ValidatorsUsers.validatePassword(value,_contrasena),
                     onChanged: (value) => _contrasena2= value,
                   ), 
                 ),
@@ -184,7 +184,7 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
                       labelText: "Edad",
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => Validators.validateEdad(int.tryParse(value!)),
+                    validator: (value) => ValidatorsUsers.validateEdad(int.tryParse(value!)),
                     onChanged:(value) => _edad = int.parse(value),
                   ), 
                 ),

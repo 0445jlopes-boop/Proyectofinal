@@ -1,4 +1,4 @@
-class Validators {
+class ValidatorsUsers {
   static String? validateEmpty(String? value){
     if(value == null || value.isEmpty){
       return 'El campo está vacío';

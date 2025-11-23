@@ -46,7 +46,7 @@ class _PantallasecundariaadminState extends State<Pantallasecundariaadmin> {
                 onPressed: (){
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> const Pantallagestionproductos()),
+                  MaterialPageRoute(builder: (context)=> Pantallagestionproductos(user: widget.user)),
                   );
                },
                 child: Row(
@@ -72,6 +72,14 @@ class _PantallasecundariaadminState extends State<Pantallasecundariaadmin> {
                   ],
                 ),
               ),
+              SizedBox(height: PantallaConstantes.separador,),
+              ElevatedButton(
+                  style: Customstyles.botonesDefecto,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Volver"),
+                ),
             ],
           ),
         ),

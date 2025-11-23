@@ -3,37 +3,54 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
-import 'package:jessicalopesc1/config/utils/ValidatorsUser.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
-import 'package:jessicalopesc1/models/user.dart';
+import 'package:jessicalopesc1/models/producto.dart';
+import 'package:jessicalopesc1/config/utils/ValidatorsProductos.dart';
+import 'package:jessicalopesc1/services/LogicaProductos.dart';
 
-class DialogoEditarUsuario {
+class DialogoEditarProducto {
   final _formKey = GlobalKey<FormState>();
-  final List<String>? _items = ["Zaragoza","Madrid","Barcelona","Toledo"];
-  
-  void _validarUsuario(UserOfMyApp user, BuildContext context) {
+
+  void _validarProducto(Producto producto, BuildContext context, bool nuevo) {
     final isFormValid = _formKey.currentState!.validate();
 
     if (isFormValid) {
-      if (user.isAdmin) {
-        user.imagen = "assets/images/logo.png";
-      }
-      Navigator.pop(context);
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text("HECHO!"),
-          content: Text(
-            "Las modificaciones en el usuario se han realizado correctamente",
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("Cerrar"),
+      if (nuevo) {
+        Navigator.pop(context);
+        Logicaproductos.anadirProducto(producto);
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text("HECHO!"),
+            content: Text(
+              "Se ha añadido el producto correctamente",
             ),
-          ],
-        ),
-      );
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Cerrar"),
+              ),
+            ],
+          ),
+        );
+      } else {
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: const Text("HECHO!"),
+            content: Text(
+              "Las modificaciones en el producto se han realizado correctamente",
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Cerrar"),
+              ),
+            ],
+          ),
+        );
+      }
     } else {
       showDialog(
         context: context,
@@ -52,42 +69,20 @@ class DialogoEditarUsuario {
       );
     }
   }
-
-  void editarUsuario(BuildContext context, UserOfMyApp user){
+  void editarAnadirProdcuto(BuildContext context, Producto producto){
     showDialog(
       context: context, 
       builder: (BuildContext context){
         return 
         SingleChildScrollView(
           child:AlertDialog(
-              title: const Text("Editar Usuario"),
+              title: Text(
+                producto.nombre == ""
+                ? "Añadir producto"
+                : "Editar producto",
+              ),
               content: Form(child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Text("Trato"),
-                      SizedBox(width: PantallaConstantes.sepaadorPequeno,),
-                          Text("Sr."),
-                          Radio(
-                            value: "Sr",
-                            groupValue: user.trato,
-                            onChanged: (value) {
-                              user.setTrato(value!);
-                            },
-                          ),
-                          SizedBox(width: 5,),
-                          Text("Sra."),
-                          Radio(
-
-                            value: "Sra",
-                            groupValue: user.trato,
-                            onChanged: (value) {
-                             user.setTrato(value!);
-                            },
-                         ),
-                    ],
-                  ),
-                  SizedBox(height: PantallaConstantes.separador,),
                 SizedBox(
                   width: PantallaConstantes.ancho,
                   child:TextFormField(
@@ -95,10 +90,10 @@ class DialogoEditarUsuario {
                        labelText: "Nombre",
                         border: OutlineInputBorder(),
                     ),
-                    initialValue: user.nombre,
-                   validator: (value) => ValidatorsUsers.validateEmpty(value),
+                    initialValue: producto.nombre,
+                   validator: (value) => ValidatorsProductos.validateEmpty(value),
                    onChanged: (value) {
-                      user.setNombre(value!);
+                      producto.setNombre(value);
                     }
                   ), 
                 ),
@@ -108,13 +103,13 @@ class DialogoEditarUsuario {
                   child:TextFormField(
                     obscureText: true,
                     decoration: const InputDecoration(
-                      labelText: "Contraseña",
+                      labelText: "Descripcion",
                       border: OutlineInputBorder(),
                     ),
-                    initialValue: user.contrasena,
-                    validator: (value) => ValidatorsUsers.validateEmpty(value),
+                    initialValue: producto.descripcion,
+                    validator: (value) => ValidatorsProductos.validateEmpty(value),
                     onChanged: (value) {
-                      user.setContrasena(value!);
+                      producto.setDescripcion(value!);
                     },
                   ), 
                 ),
@@ -122,9 +117,9 @@ class DialogoEditarUsuario {
                 SizedBox(
                   width: 120,
                   height: 120,
-                  child: user.imagen != ""
+                  child: producto.imagen != ""
                     ? Image(
-                        image: FileImage(File(user.imagen)),
+                        image: FileImage(File(producto.imagen)),
                         fit: BoxFit.fill,
                       )
                     : SizedBox(
@@ -143,7 +138,7 @@ class DialogoEditarUsuario {
                         onPressed: () async {
                           final path = await CameraGalleryService().selectPhoto();
                           if (path == null) return;
-                          user.setImagen(path!);
+                          producto.setImagen(path!);
                         }
                       ),
                       ElevatedButton(
@@ -151,7 +146,7 @@ class DialogoEditarUsuario {
                         onPressed: () async {
                           final path = await CameraGalleryService().takePhoto();
                           if (path == null) return;
-                          user.setImagen(path!);
+                          producto.setImagen(path!);
                            
                         }
                       ),
@@ -163,49 +158,34 @@ class DialogoEditarUsuario {
                   width: PantallaConstantes.ancho,
                   child:TextFormField(
                     decoration: const InputDecoration(
-                      labelText: "Edad",
+                      labelText: "Stock",
                       border: OutlineInputBorder(),
                     ),
-                    initialValue: user.edad.toString(),
-                    validator: (value) => ValidatorsUsers.validateEdad(int.tryParse(value!)),
+                    initialValue: producto.stock.toString(),
+                    validator: (value) => ValidatorsProductos.validateStock(int.tryParse(value!)),
                     onChanged:(value) {
-                      user.setEdad(int.parse(value));
+                      producto.setStock(int.parse(value));
                     },
                   ), 
                 ),
                 SizedBox(height: PantallaConstantes.separador),
                 SizedBox(
                   width: PantallaConstantes.ancho,
-                  child: DropdownButton<String>(
-                    value: user.nacimiento,
-                    hint:  Text('Seleccione el lugar de nacimiento'),
-                    items: _items!.map((item){
-                      return DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(item),  
-                      );
-                    } ).toList(),
-                    onChanged: (String? newValue){
-                      user.setNacimiento(newValue!);
-                    }
-                  )
-                ),
+                  child:TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: "Precio",
+                      border: OutlineInputBorder(),
+                    ),
+                    initialValue: producto.precio.toString(),
+                    validator: (value) => ValidatorsProductos.validatePrecio(double.tryParse(value!)),
+                    onChanged:(value) {
+                      producto.setPrecio(double.parse(value));
+                    },
+                  ), 
+                ),               
                 SizedBox(height: PantallaConstantes.separador),
-                SizedBox(
-                  width: PantallaConstantes.ancho,
-                  child: Row(
-                    children: [
-                      Text("Usuario administrador"),
-                      Checkbox(
-                        value: user.isAdmin, 
-                        onChanged: (bool? value){
-                          user.setAdmin(value!);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: PantallaConstantes.separador),
+                producto.nombre != ""
+                ?
                 SizedBox(
                   width: PantallaConstantes.ancho,
                   child: Column(
@@ -213,9 +193,32 @@ class DialogoEditarUsuario {
                       ElevatedButton(
                         style: Customstyles.botonesDefecto,
                         onPressed: (){
-                          _validarUsuario(user,context);
+                          _validarProducto(producto,context, false);
                         },       
                         child: Text("Aceptar"),
+                      ),
+                      SizedBox(height: PantallaConstantes.separador),
+                      ElevatedButton(
+                        style: Customstyles.botonesDefecto,
+                        onPressed: (){
+                          Navigator.pop(context);
+                        }, 
+                        child: Text("Cancelar")
+                      )
+                    ],
+                  ),
+                )
+                :
+                SizedBox(
+                  width: PantallaConstantes.ancho,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: Customstyles.botonesDefecto,
+                        onPressed: (){
+                          _validarProducto(producto,context,true);
+                        },       
+                        child: Text("Añadir Producto"),
                       ),
                       SizedBox(height: PantallaConstantes.separador),
                       ElevatedButton(
@@ -235,4 +238,7 @@ class DialogoEditarUsuario {
       }
     );
   }
+
+
+
 }

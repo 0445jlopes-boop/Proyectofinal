@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jessicalopesc1/models/user.dart';
 
 class UserController {
 
@@ -54,6 +55,8 @@ class UserController {
       nombre = user?.displayName;
       email = user?.email;
       foto = user?.photoURL;
+
+      //Craer usuario
 
       return user;
     }catch(e){

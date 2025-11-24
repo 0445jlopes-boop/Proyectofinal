@@ -1,6 +1,6 @@
 class ValidatorsProductos {
   static String? validateEmpty(String? value){
-    if(value == null || value.isEmpty){
+    if(value == null || value.isEmpty || value != ""){
       return 'El campo está vacío';
     }
     return null;

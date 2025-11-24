@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/button_styles.dart';
@@ -5,8 +8,8 @@ import 'package:jessicalopesc1/config/utils/icon_styles.dart';
 import 'package:jessicalopesc1/models/producto.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/services/LogicaProductos.dart';
-import 'package:jessicalopesc1/widgets/DialogoContrasena.dart';
 import 'package:jessicalopesc1/widgets/DialogoProducto.dart';
+import 'package:jessicalopesc1/widgets/dialogoPrueba.dart';
 import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
 class Pantallagestionproductos extends StatefulWidget {
@@ -89,10 +92,24 @@ class _PantallagestionproductosState extends State<Pantallagestionproductos> {
                               children: [
                                 Text("Precio: ${producto.precio} €"),
                                 Text("Stock: ${producto.stock}"),
-                                Text("Descripción: ${producto.descripcion}")
+                                Text("Descripción: ${producto.descripcion}"),
                               ],
                             ),
-                            leading: Image.asset(productos[index].getImagen()),
+                            leading: SizedBox(
+                              width: 100,
+                              height: 120,
+                              child: producto.imagen != ""
+                                  ? kIsWeb
+                                        ? Image.network(
+                                            producto.imagen!,
+                                            fit: BoxFit.fill,
+                                          )
+                                        : Image.file(
+                                            File(producto.imagen!),
+                                            fit: BoxFit.fill,
+                                          )
+                                  : Image.asset(producto.imagen),
+                            ),
                           ),
                         );
                       },
@@ -103,7 +120,7 @@ class _PantallagestionproductosState extends State<Pantallagestionproductos> {
                 ElevatedButton(
                   style: Customstyles.botonesDefecto,
                   onPressed: () {
-                    DialogoEditarProducto().editarAnadirProdcuto(context, Producto(nombre:"", imagen: "", descripcion: "", precio: 0 , stock: 0));
+                    DialogoEditarProducto().editarAnadirProdcuto(context, Producto(nombre:"", imagen: "", descripcion: "", precio: 0 , stock: 0),);
                   },
                   child: Text("Nuevo Producto"),
                 ),

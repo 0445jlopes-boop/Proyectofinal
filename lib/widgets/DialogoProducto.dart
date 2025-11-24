@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
@@ -14,9 +15,8 @@ class DialogoEditarProducto {
   void _validarProducto(Producto producto, BuildContext context, bool nuevo) {
     final isFormValid = _formKey.currentState!.validate();
 
-    if (isFormValid) {
+    if (isFormValid && (!producto.imagen.isEmpty || producto.imagen != null)) {
       if (nuevo) {
-        Navigator.pop(context);
         Logicaproductos.anadirProducto(producto);
         showDialog(
           context: context,
@@ -34,7 +34,6 @@ class DialogoEditarProducto {
           ),
         );
       } else {
-        Navigator.pop(context);
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
@@ -50,6 +49,7 @@ class DialogoEditarProducto {
             ],
           ),
         );
+        
       }
     } else {
       showDialog(
@@ -115,18 +115,20 @@ class DialogoEditarProducto {
                 ),
                 SizedBox(height: PantallaConstantes.separador),
                 SizedBox(
-                  width: 120,
-                  height: 120,
-                  child: producto.imagen != ""
-                    ? Image(
-                        image: FileImage(File(producto.imagen)),
-                        fit: BoxFit.fill,
-                      )
-                    : SizedBox(
-                        height: PantallaConstantes.sepaadorPequeno,
-                        child: Container(),
-                      )
-                ),
+                width: 120,
+                height: 120,
+                child: producto.imagen != ""
+                    ? kIsWeb
+                        ? Image.network(
+                         producto.imagen!,
+                          fit: BoxFit.fill
+                        )
+                        : Image.file(
+                          File(producto.imagen!),
+                          fit: BoxFit.fill,
+                        )
+                    : Image.asset(producto.imagen,),
+              ),
                 SizedBox(
                   width: PantallaConstantes.ancho,
                   child: Row(
@@ -196,18 +198,11 @@ class DialogoEditarProducto {
                           _validarProducto(producto,context, false);
                         },       
                         child: Text("Aceptar"),
-                      ),
-                      SizedBox(height: PantallaConstantes.separador),
-                      ElevatedButton(
-                        style: Customstyles.botonesDefecto,
-                        onPressed: (){
-                          Navigator.pop(context);
-                        }, 
-                        child: Text("Cancelar")
                       )
-                    ],
-                  ),
+                    ]
+                  )
                 )
+                      
                 :
                 SizedBox(
                   width: PantallaConstantes.ancho,
@@ -219,8 +214,11 @@ class DialogoEditarProducto {
                           _validarProducto(producto,context,true);
                         },       
                         child: Text("Añadir Producto"),
-                      ),
-                      SizedBox(height: PantallaConstantes.separador),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: PantallaConstantes.separador),
                       ElevatedButton(
                         style: Customstyles.botonesDefecto,
                         onPressed: (){
@@ -228,9 +226,6 @@ class DialogoEditarProducto {
                         }, 
                         child: Text("Cancelar")
                       )
-                    ],
-                  ),
-                )
                 ],
               )), 
              )

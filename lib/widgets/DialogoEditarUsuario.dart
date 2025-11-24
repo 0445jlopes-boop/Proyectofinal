@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
@@ -120,18 +121,20 @@ class DialogoEditarUsuario {
                 ),
                 SizedBox(height: PantallaConstantes.separador),
                 SizedBox(
-                  width: 120,
-                  height: 120,
-                  child: user.imagen != ""
-                    ? Image(
-                        image: FileImage(File(user.imagen)),
-                        fit: BoxFit.fill,
-                      )
-                    : SizedBox(
-                        height: PantallaConstantes.sepaadorPequeno,
-                        child: Container(),
-                      )
-                ),
+                width: 120,
+                height: 120,
+                child:user.imagen != ""
+                    ? kIsWeb
+                        ? Image.network(
+                          user.imagen!,
+                          fit: BoxFit.fill
+                        )
+                        : Image.file(
+                          File(user.imagen!),
+                          fit: BoxFit.fill,
+                        )
+                    : Image.asset(user.imagen,),
+              ),
                 SizedBox(
                   width: PantallaConstantes.ancho,
                   child: Row(

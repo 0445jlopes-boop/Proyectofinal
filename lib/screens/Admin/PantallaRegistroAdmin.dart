@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/config/resources/Pantalla_constantes.dart';
 import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
@@ -138,14 +139,10 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
                 SizedBox(height: PantallaConstantes.separador),
                 SizedBox(
                   child: photoPath != ""
-                    ? Image(
-                        image: FileImage(File(photoPath)),
-                        fit: BoxFit.fill,
-                      )
-                    : SizedBox(
-                        height: PantallaConstantes.sepaadorPequeno,
-                        child: Container(),
-                      )
+                      ? kIsWeb
+                            ? Image.network(photoPath!, fit: BoxFit.fill)
+                            : Image.file(File(photoPath!), fit: BoxFit.fill)
+                      : Image.asset(photoPath),
                 ),
                 SizedBox(
                   width: PantallaConstantes.ancho,
@@ -158,8 +155,9 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
                         onPressed: () async {
                           final path = await CameraGalleryService().selectPhoto();
                           if (path == null) return;
+                           photoPath = path;
                           setState(() {
-                            photoPath = path;
+                           
                           });
                         }
                       ),
@@ -168,8 +166,9 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
                         onPressed: () async {
                           final path = await CameraGalleryService().takePhoto();
                           if (path == null) return;
+                           photoPath = path;
                           setState(() {
-                            photoPath = path;
+                           
                           });
                         }
                       ),

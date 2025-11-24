@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jessicalopesc1/controllers/controllersRegistro.dart';
 import 'package:jessicalopesc1/config/utils/CameraGalleryService.dart';
@@ -147,19 +148,15 @@ class _PantallaregistroState extends State<Pantallaregistro> {
                 SizedBox(height: PantallaConstantes.separador),
                 SizedBox(
                   child: photoPath != ""
-                    ? Image(
-                        image: FileImage(File(photoPath)),
-                        fit: BoxFit.fill,
-                      )
-                    : SizedBox(
-                        height: PantallaConstantes.sepaadorPequeno,
-                        child: Container(),
-                      )
+                      ? kIsWeb
+                            ? Image.network(photoPath!, fit: BoxFit.fill)
+                            : Image.file(File(photoPath!), fit: BoxFit.fill)
+                      : Image.asset(photoPath),
                 ),
                 SizedBox(
                   width: PantallaConstantes.ancho,
                   child: Row(
-                   children: [
+                    children: [
                       Text("Añadir imagen"),
                       SizedBox(width: PantallaConstantes.separador,),
                       ElevatedButton(

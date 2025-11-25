@@ -9,7 +9,6 @@ import 'package:jessicalopesc1/models/producto.dart';
 import 'package:jessicalopesc1/models/user.dart';
 import 'package:jessicalopesc1/services/LogicaProductos.dart';
 import 'package:jessicalopesc1/widgets/DialogoProducto.dart';
-import 'package:jessicalopesc1/widgets/dialogoPrueba.dart';
 import 'package:jessicalopesc1/widgets/drawerGeneral.dart';
 
 class Pantallagestionproductos extends StatefulWidget {
@@ -26,6 +25,7 @@ class _PantallagestionproductosState extends State<Pantallagestionproductos> {
     return Scaffold(
       drawer: CustomDrawer(user: widget.user),
       appBar: AppBar(
+        backgroundColor:PantallaConstantes.fondoAppBar,
         title: Text("Gestión productos"),
       ),
       body: Padding(
@@ -33,7 +33,7 @@ class _PantallagestionproductosState extends State<Pantallagestionproductos> {
         child: Column(
           children: [
             productos.isEmpty
-                ? const Center(child: Text("No hay productos"))
+                ? const Center(child: Text("No hay productos", style: PantallaConstantes.tamano,))
                 : Expanded(
                     flex: 3,
                     child: ListView.builder(
@@ -51,9 +51,11 @@ class _PantallagestionproductosState extends State<Pantallagestionproductos> {
                                   children: [
                                     IconButton(
                                       color: IconStyles.iconoEditar,
-                                      onPressed: () { 
-                                         DialogoEditarProducto().editarAnadirProdcuto(context, producto);
-                                        setState(() {});
+                                      onPressed: () async { 
+                                        final actualizado = await DialogoEditarProducto().editarAnadirProducto(context, producto);
+                                        if (actualizado != null) {
+                                          setState(() {});
+                                        }
                                       },
                                       icon: Icon(Icons.edit),
                                     ),
@@ -76,7 +78,15 @@ class _PantallagestionproductosState extends State<Pantallagestionproductos> {
                                         : showDialog(
                                           context: context, 
                                           builder: (BuildContext context){
-                                            return AlertDialog( title: Text("Error al eliminar el producto"));
+                                            return AlertDialog( 
+                                              title: Text("Error al eliminar el producto"),
+                                              actions: [
+                                                ElevatedButton(
+                                                   onPressed: () => Navigator.pop(context),
+                                                    child: Text("Cerrar")
+                                                )
+                                              ],
+                                            );
                                           }
                                         );
                                         setState(() {});
@@ -119,8 +129,13 @@ class _PantallagestionproductosState extends State<Pantallagestionproductos> {
               children: [
                 ElevatedButton(
                   style: Customstyles.botonesDefecto,
-                  onPressed: () {
-                    DialogoEditarProducto().editarAnadirProdcuto(context, Producto(nombre:"", imagen: "", descripcion: "", precio: 0 , stock: 0),);
+                  onPressed: () async {
+                    final nuevo = await DialogoEditarProducto().editarAnadirProducto(context, Producto(nombre:"", imagen: "", descripcion: "", precio: 0 , stock: 0));
+                    if (nuevo != null) {
+                      setState(() {
+                        productos.add(nuevo);
+                      });
+                    }
                   },
                   child: Text("Nuevo Producto"),
                 ),

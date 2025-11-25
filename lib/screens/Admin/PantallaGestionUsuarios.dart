@@ -25,6 +25,7 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
     return Scaffold(
       drawer: CustomDrawer(user: widget.user),
       appBar: AppBar(
+        backgroundColor:PantallaConstantes.fondoAppBar,
         title: Text("Gestión usuarios"),
       ),
       body: Padding(
@@ -32,7 +33,7 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
         child: Column(
           children: [
             users.isEmpty
-                ? const Center(child: Text("No hay usuarios"))
+                ? const Center(child: Text("No hay usuarios", style: PantallaConstantes.tamano,))
                 : Expanded(
                     flex: 3,
                     child: ListView.builder(
@@ -50,9 +51,18 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
                                   children: [
                                     IconButton(
                                       color: IconStyles.iconoEditar,
-                                      onPressed: () { 
-                                         DialogoEditarUsuario().editarUsuario(context, user);
-                                        setState(() {});
+                                      onPressed: () async {
+                                        final actualizado =
+                                            await DialogoEditarUsuario()
+                                                .editarUsuario(context, user);
+
+                                        if (actualizado != null) {
+                                          setState(() {
+                                            user.actualizar(
+                                              actualizado,
+                                            ); // Método que debes tener para copiar valores
+                                          });
+                                        }
                                       },
                                       icon: Icon(Icons.edit),
                                     ),
@@ -78,20 +88,37 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
                                     ),
                                     IconButton(
                                       color: IconStyles.iconoEliminar,
-                                      onPressed: (){
+                                      onPressed: () {
                                         LogicaUsuarios.eliminarUsuario(user)
-                                        ? showDialog(
-                                          context: context, 
-                                          builder: (BuildContext context){
-                                            return AlertDialog( title: Text("Usuario eliminado correctamente"));
-                                          }
-                                        )
-                                        : showDialog(
-                                          context: context, 
-                                          builder: (BuildContext context){
-                                            return AlertDialog( title: Text("Error al eliminar el usuario"));
-                                          }
-                                        );
+                                            ? showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                      "Usuario eliminado correctamente",
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                      "Error al eliminar el producto",
+                                                    ),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                              context,
+                                                            ),
+                                                        child: Text("Cerrar"),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
                                         setState(() {});
                                       },
                                       icon: Icon(Icons.delete),
@@ -124,13 +151,18 @@ class _PantallagestionusuariosState extends State<Pantallagestionusuarios> {
               children: [
                 ElevatedButton(
                   style: Customstyles.botonesDefecto,
-                  onPressed: () {
-                    Navigator.push(
+                  onPressed: () async {
+                    final nuevoUsuario = await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => Pantallaregistroadmin(),
                       ),
                     );
+                    if (nuevoUsuario != null) {
+                      setState(() {
+                        users.add(nuevoUsuario);
+                      });
+                    }
                   },
                   child: Text("Nuevo usuario"),
                 ),

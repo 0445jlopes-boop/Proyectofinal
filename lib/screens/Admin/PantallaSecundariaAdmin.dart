@@ -62,7 +62,7 @@ class _PantallasecundariaadminState extends State<Pantallasecundariaadmin> {
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Pantallagestionpedidos(),
+                    builder: (context) => Pantallagestionpedidos(user: widget.user),
                   ),
                 ),
                 child: Row(

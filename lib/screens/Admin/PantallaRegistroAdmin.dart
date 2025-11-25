@@ -29,30 +29,35 @@ class _PantallaregistroadminState extends State<Pantallaregistroadmin> {
   String _nacimiento ="Zaragoza";
   bool _isAdmin = false;
 
-  void _validarUsuario(){
+  void _validarUsuario() {
     final isFormValid = _formKey.currentState!.validate();
-    if(isFormValid){
-        if(photoPath != "" && photoPath != null && photoPath.isEmpty!){
-          if(Controllersregistro.userExiste(_nombre, _contrasena)){
-            const snackBar = SnackBar(content: Text('El usuario introducido ya existe'));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }else {
-            if(_isAdmin){
-              photoPath="assets/images/logo.png";
-            }
-            UserOfMyApp usuario =UserOfMyApp(trato: _opcionTrato.toString(), nombre: _nombre, contrasena: _contrasena, edad: _edad, nacimiento: _nacimiento, imagen: photoPath!, isAdmin: _isAdmin, isBlok: false);
-            LogicaUsuarios.anadirUsuario(usuario);
-              
-            }      
-        }else{
-          const snackBar = SnackBar(content: Text('Debe añadir una imagen'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }     
-    }     
+    if (isFormValid) {
+      if (photoPath == "") {
+        const snackBar = SnackBar(content: Text('Debe añadir una imagen'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+      }
+      if (Controllersregistro.userExiste(_nombre, _contrasena)) {
+        const snackBar = SnackBar(content: Text('El usuario introducido ya existe'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+      }
+      if (_isAdmin) {
+        photoPath = "assets/images/logo.png";
+      }
+      UserOfMyApp usuario = UserOfMyApp(
+        trato: _opcionTrato!,
+        nombre: _nombre,
+        contrasena: _contrasena,
+        edad: _edad,
+        nacimiento: _nacimiento,
+        imagen: photoPath,
+        isAdmin: _isAdmin,
+        isBlok: false,
+      );
+      Navigator.pop(context, usuario);
+    }
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

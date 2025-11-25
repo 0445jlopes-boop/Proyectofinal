@@ -69,6 +69,15 @@ class UserOfMyApp{
   void setIsBlok(bool _isBlok){
     this.isBlok = _isBlok;
   }
+  void actualizar(UserOfMyApp otro) {
+    nombre = otro.nombre;
+    trato = otro.trato;
+    contrasena = otro.contrasena;
+    edad = otro.edad;
+    nacimiento = otro.nacimiento;
+    imagen = otro.imagen;
+    isAdmin = otro.isAdmin;
+  }
 
 
 }
